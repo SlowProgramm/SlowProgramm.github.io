@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>Title: {{object.name}}</p>
+<p>Author: {{object.author.username}}</p>
+<p>Category: {{object.category.title}}</p>
+<p>Rating: {{object.rating | default:"Нет оценок" }} </p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Да</button>
+</form>
+<a href="{% url 'songs' %}">Назад</a>
+{% endblock %}

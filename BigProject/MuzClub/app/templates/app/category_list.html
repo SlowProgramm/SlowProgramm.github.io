@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+<h1></h1>
+<h2>Музыкальные жанры</h2>
+<ul class="list-group ">
+    {% for category in object_list %}
+    <li style="width: 500px; display: inline" class="list-group-item wrapper">
+        <div class="list" > <a class="btn btn-outline-secondary" href="{% url 'current_category' pk=category.pk %}"> {{category.title}} </a> </div>
+        {% if user.is_superuser or user.is_staff %}
+        <a class="btn btn-outline-danger" href="{% url 'delete_category' pk=category.pk %}">Delete</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+{% if user.is_superuser or user.is_staff %}
+<a href="{% url 'genres_create' %}">Добавить жанр</a>
+{% else %}
+    <h4>Чтобы добавить или удалить жанр, нужно быть админом</h4>
+{% endif %}
+
+
+{% endblock %}

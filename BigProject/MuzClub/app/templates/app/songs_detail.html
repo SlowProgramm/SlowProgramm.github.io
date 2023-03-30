@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+ <h1>
+ <br>
+ <img width="200px" height="200px" src="{{ object.image.url}}" >
+ <h2>Название  {{object.name}} </h2>
+ <h2>Автор: <a href="{% url 'other_user' name=object.author_name %}"> {{object.author_name}} </a> </h2>
+ <h2>Жанр: {{object.category.title}}</h2>
+ <br>
+ <a href="{% url 'songs' %}">Назад</a>
+{% endblock %}

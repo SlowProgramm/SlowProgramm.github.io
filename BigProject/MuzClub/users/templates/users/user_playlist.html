@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block style %}
+li:hover .layer {
+  visibility: visible;
+}
+
+.list {
+display: inline-block;
+align: right;
+
+}
+
+img {
+  border: 2px solid #555;
+}
+li {
+margin-bottom: 1px;
+margin-top 1px;
+ list-style-type: none
+}
+.play{
+visibility: hidden;
+}
+
+li:hover .play {
+visibility: visible;
+}
+
+{% endblock %}
+
+
+{% block content %}
+<h1></h1>
+<h2>Мой плейлист</h2>
+<ul class="list-group ">
+    {% for song in user_favors %}
+    <li style="display: inline; width: 700px" class="list-group-item wrapper">
+        <img width="50" height="50" style="vertical-align: baseline;" src="{{ song.image.url}} " >
+        <div class="list">
+            <ul style="margin-left:0px; text-decoration: none">
+                <li> <a style="font-size: 20px; margin-left: 20px; margin-right: 10px" class="" href="{% url 'song' pk=song.pk%}"> {{song.name}} </a></li>
+                 <li> <a style="font-size: 15px; margin-left: 20px; margin-right: 10px" class="" href="{% url 'song' pk=song.pk%}">by {{song.author_name}}</a></li>
+             </ul>
+        </div>
+        <div  style="float: right" class="dropdown list ">
+              <button style="font-size: 20px; margin-top: 5px" class="btn  dropdown"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ⋮
+              </button>
+              <ul class="dropdown-menu ">
+                <li><a class="dropdown-item" href="{% url 'user_playlist_delete' pk=song.pk %}">Delete from playlist</a></li>
+                  <li><a class="dropdown-item" href={{song.file.url}} download>Download</a></li>
+              </ul>
+        </div>
+        <audio class="play" style="float: right; margin-right: 30px; margin-top: 8px" controls>
+            <source src="{{ song.file.url}}">
+            Your browser does not support the audio element.
+        </audio>
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
